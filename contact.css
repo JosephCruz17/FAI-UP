@@ -1,0 +1,281 @@
+/* This is the contact chat css */
+/* 
+    @NOTE color palette generated with https://coolors.co
+    also using CSS variables to make things easier to change
+    in the future. learn more about CSS vars here:
+    https://www.w3schools.com/css/css3_variables.asp
+
+    primary: #16262E
+    secondary: #2E4756
+    accent: #3C7A89
+*/
+:root {
+  --primary: #3c7a88;
+  --secondary: #283f4c;
+  --accent: #3c7a88;
+}
+
+body {
+  /* size and colors */
+  height: 100vh;
+  background-color: var(--primary);
+  color: #eaeaea;
+
+  /* flexbox styling */
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  /* text */
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+#title {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#chatbox-container {
+  /*
+        @NOTE using responsive units (vw and vh) here.
+        learn more here: https://www.w3schools.com/cssref/css_units.asp
+    */
+  /* size and colors */
+  width: 90vw;
+  height: 90vh;
+  background-color: var(--secondary);
+
+  /* CSS box model */
+  margin: 0 auto;
+  padding: 1%;
+  border-radius: 10px;
+
+  /* flexbox */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#all-messages {
+  /* size and colors */
+  width: 90%;
+  height: 70%;
+  background-color: #fff;
+  color: #000;
+
+  /* CSS box model */
+  border-radius: 10px;
+  margin: 1%;
+
+  /* visiblity */
+  overflow-wrap: normal;
+  overflow-y: auto;
+}
+
+#typing-container {
+  /* size and colors */
+  width: 90%;
+  height: 20%;
+  background-color: var(--accent);
+
+  /* CSS box model */
+  border-radius: 10px;
+  margin: 1%;
+  padding: 1%;
+
+  /* flexbox */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+form {
+  /* size and colors */
+  width: 80%;
+  height: 80%;
+
+  /* flexbox */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+form input {
+  width: 80%;
+  height: 80%;
+
+  font-size: 1.2em;
+  border-radius: 2px;
+}
+
+form label {
+  font-size: 1.2em;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#send-btn {
+  width: 15%;
+  height: 50%;
+
+  background-color: var(--secondary);
+  border: none;
+  border-radius: 10px;
+  color: #ecdada;
+
+  font-size: 1.2em;
+}
+
+#send-btn:hover {
+  background-color: var(--primary);
+  box-shadow: 2px 2px 2px #4d4d4d;
+}
+
+#send-btn:active {
+  transform: scale(0.98);
+}
+
+.single-message {
+  display: flex;
+}
+
+.single-message p {
+  margin: 1%;
+}
+
+.single-message-username {
+  font-weight: 600;
+}
+
+#preview-image {
+ width: 30px;
+ height: 100%;
+ border-radius: 10px;
+}
+
+
+.single-message-img {
+ width: 50px;
+ height: 100%;
+ border-radius: 20px;
+ margin: 1%;
+}
+
+/* contact chat css ends */
+
+
+
+
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+/*
+.main-nav {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.main-nav img {
+  height: 70px;               
+}
+
+.main-nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.main-nav a:hover {
+  color: #0076d6;
+  border-bottom: 2px solid #0076d6;}
+*/
+  /* Header and nav */
+.site-header {
+  background: var(--white);
+  border-bottom: 1px solid #0b1e37;
+}
+
+.nav {
+  max-width: 1100px;
+  padding: 12px 20px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand img { height: 52px; width: auto; display: block; }
+
+.nav-links {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 700;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+.nav a:hover,
+.nav a[aria-current="page"] {
+  color: var(--accent);
+  background-color: rgba(5, 205, 255, 0.425);
+}
+
+/* Mobile nav toggle */
+.nav-toggle {
+  display: none;
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.nav-toggle:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+.nav-toggle-bar {
+  display: block;
+  width: 26px;
+  height: 3px;
+  background: var(--text);
+  margin: 5px 0;
+  border-radius: 2px;
+}
+
+/* Responsive nav */
+@media (max-width: 860px) {
+  .nav-toggle { display: inline-block; }
+  .nav-links {
+    position: absolute;
+    right: 20px;
+    top: 70px;
+    background: var(--white);
+    border: 1px solid #1069dc;
+    border-radius: 12px;
+    padding: 10px;
+    display: none;
+    flex-direction: column;
+    width: min(92vw, 300px);
+    box-shadow: 0 10px 26px rgba(0, 255, 0, 0.1);
+  }
+  .nav-links.open { display: flex; }
+}

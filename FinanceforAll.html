@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>FAI-UP | Finance for All</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <header class="site-header">
+        <nav class="nav" aria-label="Primary">
+            <a class="brand" href="index.html">
+                <img src="images/FAIlogo.png" alt="FAI-UP logo" />
+            </a>
+            <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Menu">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
+            <div id="primary-navigation" class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="Risk.html">Risk</a>
+                <a href="Contact.html">Contact</a>
+                <a href="FinanceforAll.html" aria-current="page">Finance for All</a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="content">
+        <header class="page-header">
+            <h1>Finance for All</h1>
+            <p>Budgeting, saving, investing, and taxes—made clear and achievable.</p>
+        </header>
+
+        <section class="grid two-col">
+            <article class="card">
+                <h2>Budgeting</h2>
+                <p>Set goals, track expenses, and review monthly plans.</p>
+            </article>
+            <article class="card">
+                <h2>Saving</h2>
+                <p>Start small, automate deposits, and grow momentum.</p>
+            </article>
+            <article class="card">
+                <h2>Investing</h2>
+                <p>Diversify wisely, keep costs low, and stay long-term focused.</p>
+            </article>
+            <article class="card">
+                <h2>Taxes</h2>
+                <p>Know your brackets, use credits and deductions, file smart.</p>
+            </article>
+            <article class="card">
+                <h2>Credit and Debt Management</h2>
+                <p>Understanding credit scores and reports, Building credit responsibly, Paying off credit cards and
+                    loans strategically.</p>
+            </article>
+            <article class="card">
+                <h2>Income Growth</h2>
+                <ul>
+                    <li>Negotiating salaries</li>
+                    <li>Side hustles & freelancing</li>
+                    <li>Career skills that increase earning power</li>
+                </ul>
+            </article>
+            <article class="card">
+                <h2>Financial Mindset & Habits</h2>
+                <ul>
+                    <li>Setting financial goals</li>
+                    <li>Overcoming spending temptations</li>
+                    <li>Behavioral finance (The way of how emotions affect money)</li>
+                </ul>
+            </article>
+            <article class="card">
+                <h2>Consumer Awareness</h2>
+                <ul>
+                    <li>Avoiding scams and fraud</li>
+                    <li>Reading contracts and fine print</li>
+                    <li>Smart shopping & comparison tools</li>
+                </ul>
+            </article>
+            </article>
+                        <article class="card">
+                <h2>🧠 Train your money mindset</h2>
+                <p>Set clear goals and track your progress. When you know what you’re aiming for, it’s easier to skip unnecessary spending.</p>
+            </article>
+                        <article class="card">
+                <h2>📅 Think about the future nowt</h2>
+                <p>Even if retirement feels far away, start putting a little aside. The earlier you start, the less you’ll have to save later thanks to compound growth.</p>
+            </article>
+                        </article>
+                        <article class="card">
+                <h2>🏡 Plan for life’s big moves</h2>
+                <p>Buying a car, moving, or having kids all come with big costs. Planning ahead takes away a lot of the stress.</p>
+            </article>
+                        <article class="card">
+                <h2>💳 Start smart with your first credit card</h2>
+                <p>Your first card sets the tone for your credit history, so pick one with no annual fee, a low interest rate, and simple rewards. Student and beginner cards from banks like Discover it® Student Cash Back or Chase Freedom Rise℠ are great starting points. Use it for small purchases and pay the balance in full every month.</p>
+            </article>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="year"></span> FAI-UP. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.querySelector('.nav-toggle')?.addEventListener('click', () => {
+            const nav = document.getElementById('primary-navigation');
+            const expanded = nav.classList.toggle('open');
+            document.querySelector('.nav-toggle').setAttribute('aria-expanded', expanded);
+        });
+        document.getElementById('year').text

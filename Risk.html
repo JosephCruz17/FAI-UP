@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FAI-UP | Risk</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html">
+        <img src="images/FAIlogo.png" alt="FAI-UP logo" />
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <div id="primary-navigation" class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="Risk.html" aria-current="page">Risk</a>
+        <a href="Contact.html">Contact</a>
+        <a href="FinanceforAll.html">Finance for All</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="content">
+    <header class="page-header">
+      <h1>Understanding Financial Risk</h1>
+      <p>Make informed decisions by recognizing, measuring, and managing risk.</p>
+    </header>
+
+    <section class="grid two-col">
+      <article class="info">
+        <h2>Types of Risk</h2>
+        <ul>
+          <li><strong>Credit risk:</strong> Borrowing beyond ability to repay.</li>
+          <li><strong>Liquidity risk:</strong> Running out of cash when needed.</li>
+          <li><strong>Market risk:</strong> Investments may lose value.</li>
+          <li><strong>Insurance gaps:</strong> Insufficient coverage for emergencies.</li>
+        </ul>
+      </article>
+
+      <article class="info">
+        <h2>Smart Safeguards</h2>
+        <ul>
+          <li>Build an emergency fund (1+ month of expenses).</li>
+          <li>Track and limit spending by category.</li>
+          <li>Diversify investments to reduce volatility.</li>
+          <li>Get appropriate insurance and review it yearly.</li>
+        </ul>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> FAI-UP. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-toggle')?.addEventListener('click', () => {
+      const nav = document.getElementById('primary-navigation');
+      const expanded = nav.classList.toggle('open');
+      document.querySelector('.nav-toggle').setAttribute('aria-expanded', expanded);
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

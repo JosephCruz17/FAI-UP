@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- @NOTE linking our CSS -->
+  <link rel="stylesheet" href="contact.css" />
+
+  <!-- @NOTE linking firebase version 8 CDNs first -->
+  <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <!-- @NOTE initializing firebase -->
+  <script defer src="init-firebase.js"></script>
+
+  <!-- @NOTE link our main.js AFTER we load initialize firebase -->
+  <script defer src="script.js"></script>
+  <title>Fire Chat</title>
+</head>
+
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html">
+        <img src="images/FAIlogo.png" alt="FAI-UP logo" />
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <div id="primary-navigation" class="nav-links">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="Risk.html">Risk</a>
+        <a href="Contact.html">Contact</a>
+        <a href="FinanceforAll.html">Finance for All</a>
+      </div>
+    </nav>
+  </header>
+  <div id="chatbox-container">
+    <h1 id="title">Fire Chat</h1>
+
+    <!-- @NOTE this is where we'll append messages -->
+    <div id="all-messages">
+      <!-- @NOTE sample message -->
+      <!-- <div class="single-message">
+                <p class="single-message-username">andymina:</p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                    Doloremque laboriosam dignissimos molestias ad illum odio
+                    dolor beatae dolore! Possimus laborum culpa debitis at
+                    obcaecati sit assumenda, placeat delectus reiciendis
+                    accusamus!
+                </p>
+            </div> -->
+    </div>
+
+    <div id="typing-container">
+      <form>
+        <!-- @NOTE this input has an id #username -->
+        <div class="input-container">
+          <label>Username:</label>
+          <input type="text" id="username" />
+        </div>
+
+        <!-- @NOTE this input has an id #message -->
+        <div class="input-container">
+          <label>Message:</label>
+          <input type="text" id="message" />
+        </div>
+
+        <!-- @NOTE this input has an id #email -->
+        <div class="input-container">
+          <label>Email:</label>
+          <input type="text" id="email" />
+        </div>
+        <!-- @NOTE this input has an id #profile -->
+        <div class="input-container">
+          <label>Profile:</label>
+          <img id="preview-image" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" />
+          <input type="text" id="profile" placeholder="Enter Image URL"
+            value="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" />
+          <script>
+            let imagePreview = document.getElementById('preview-image');
+            let imageInput = document.getElementById('profile');
+
+
+            imageInput.oninput = function () {
+              if (imageInput.value !== '') {
+                imagePreview.src = imageInput.value;
+              } else {
+                imagePreview.src = 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
+              }
+            };
+          </script>
+        </div>
+      </form>
+
+      <button id="send-btn">Send</button>
+    </div>
+  </div>
+</body>
+
+</html>

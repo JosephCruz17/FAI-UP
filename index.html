@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FAI-UP | Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html">
+        <img src="images/FAIlogo.png" alt="FAI-UP logo" />
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <div id="primary-navigation" class="nav-links">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="Risk.html">Risk</a>
+        <a href="Contact.html">Contact</a>
+        <a href="FinanceforAll.html">Finance for All</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>Empowering youth with financial literacy</h1>
+        <p>Learn to budget, save, invest, and make smart money moves.</p>
+        <a href="FinanceforAll.html" class="cta-button">Get started</a>
+      </div>
+    </section>
+
+    <section class="features">
+      <article class="card">
+        <h2>Learn the basics</h2>
+        <p>Clear, practical guides to build confidence in money matters.</p>
+      </article>
+      <article class="card">
+        <h2>Understand risk</h2>
+        <p>Spot pitfalls early and protect your financial future.</p>
+      </article>
+      <article class="card">
+        <h2>Ask questions</h2>
+        <p>Reach out in our chat—get personalized tips and answers.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> FAI-UP. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-toggle')?.addEventListener('click', () => {
+      const nav = document.getElementById('primary-navigation');
+      const expanded = nav.classList.toggle('open');
+      document.querySelector('.nav-toggle').setAttribute('aria-expanded', expanded);
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
