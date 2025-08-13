@@ -8,6 +8,7 @@
       navToggle.setAttribute('aria-expanded', String(open));
     });
   }
+
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 })();
@@ -28,11 +29,11 @@
 
   // Enable submit only when username + message present
   function updateSendButtonState() {
-    sendBtn.disabled =
-      !usernameElem.value.trim() || !messageElem.value.trim();
+    if (!sendBtn || !usernameElem || !messageElem) return;
+    sendBtn.disabled = !usernameElem.value.trim() || !messageElem.value.trim();
   }
-  usernameElem.addEventListener('input', updateSendButtonState);
-  messageElem.addEventListener('input', updateSendButtonState);
+  if (usernameElem) usernameElem.addEventListener('input', updateSendButtonState);
+  if (messageElem) messageElem.addEventListener('input', updateSendButtonState);
   updateSendButtonState();
 
   // Live preview for profile image
@@ -58,10 +59,7 @@
     };
     let output = String(text || '');
     for (const code in map) {
-      const re = new RegExp(
-        code.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
-        'g'
-      );
+      const re = new RegExp(code.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
       output = output.replace(re, map[code]);
     }
     return output;
@@ -135,7 +133,7 @@
     messagingSenderId: "000000000000",
     appId: "1:000000000000:web:xxxxxxxxxxxxxxxxxxxxxx"
   };
-  if (!firebase.apps.length) {
+  if (!firebase.apps || !firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
   }
 
@@ -148,14 +146,14 @@
     addMessageToBoard(data);
   });
 
-  // Submit handler
-  form.addEventListener('submit', (event) => {
+  // Submit handler (form submit is the single source of truth)
+  function handleSubmit(event) {
     event.preventDefault();
 
-    const username = usernameElem.value.trim();
-    const message = messageElem.value.trim();
-    const email = emailElem.value.trim();
-    const profile = profileElem.value.trim();
+    const username = (usernameElem?.value || '').trim();
+    const message = (messageElem?.value || '').trim();
+    const email = (emailElem?.value || '').trim();
+    const profile = (profileElem?.value || '').trim();
 
     if (!username || !message) return;
 
@@ -172,18 +170,30 @@
     };
 
     database.push(payload);
-    messageElem.value = '';
+    if (messageElem) messageElem.value = '';
     updateSendButtonState();
-    messageElem.focus();
-  });
+    messageElem?.focus();
+  }
+
+  form.addEventListener('submit', handleSubmit);
 
   // Enter to submit
-  messageElem.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey && !sendBtn.disabled) {
+  if (messageElem) {
+    messageElem.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey && !sendBtn?.disabled) {
+        e.preventDefault();
+        form.requestSubmit();
+      }
+    });
+  }
+
+  // Click on send triggers form submit for consistency
+  if (sendBtn) {
+    sendBtn.addEventListener('click', (e) => {
       e.preventDefault();
       form.requestSubmit();
-    }
-  });
+    });
+  }
 
   // Dark mode toggle (scoped to chat page)
   if (darkModeBtn) {

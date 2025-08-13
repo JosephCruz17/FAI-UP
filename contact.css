@@ -1,4 +1,4 @@
-/* This is the contact chat css */
+erver/* This is the contact chat css */
 /* 
     @NOTE color palette generated with https://coolors.co
     also using CSS variables to make things easier to change
@@ -168,7 +168,12 @@ form label {
 
 /* contact chat css ends */
 
-
+#preview-image {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 8px;
+  object-fit: cover;
+}
 
 
 html {
@@ -279,7 +284,4 @@ html {
   }
   .nav-links.open { display: flex; }
 }
-
-
-
 

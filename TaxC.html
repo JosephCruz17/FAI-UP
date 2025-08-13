@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FAI-UP | Tax Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html">
+        <img src="images/FAIlogo.png" alt="FAI-UP logo" />
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <div id="primary-navigation" class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="Risk.html">Risk</a>
+        <a href="Contact.html">Contact</a>
+        <a href="FinanceforAll.html">Finance for All</a>
+        <a href="TaxC.html">Calculator</a>
+        <a href="Cashclass.html">Cash Class</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="content">
+    <header class="page-header">
+      <h1>US Federal Tax Calculator</h1>
+      <p>Estimate your federal income tax using current brackets and the standard or itemized deduction.</p>
+    </header>
+
+    <section class="grid two-col" aria-labelledby="tax-form-heading">
+      <form id="tax-form" class="info" novalidate>
+        <h2 id="tax-form-heading">Your details</h2>
+
+        <div class="input-row">
+          <label for="tax-year"><strong>Tax year:</strong></label>
+          <select id="tax-year" name="taxYear" required>
+            <option value="2024" selected>2024</option>
+          </select>
+        </div>
+
+        <div class="input-row">
+          <label for="filing-status"><strong>Filing status:</strong></label>
+          <select id="filing-status" name="filingStatus" required>
+            <option value="single">Single</option>
+            <option value="married_joint">Married filing jointly</option>
+            <option value="married_separate">Married filing separately</option>
+            <option value="head_household">Head of household</option>
+          </select>
+        </div>
+
+        <div class="input-row">
+          <label for="income"><strong>Annual gross income (W-2/self-employment):</strong></label>
+          <input id="income" name="income" type="number" inputmode="decimal" min="0" step="100" placeholder="e.g., 85000" required />
+        </div>
+
+        <div class="input-row">
+          <label for="pretax"><strong>Pre-tax contributions and adjustments:</strong></label>
+          <input id="pretax" name="pretax" type="number" inputmode="decimal" min="0" step="100" placeholder="401(k), HSA, traditional IRA, etc." />
+        </div>
+
+        <fieldset class="input-row">
+          <legend><strong>Deduction:</strong></legend>
+          <div>
+            <input type="radio" id="deduction-standard" name="deductionType" value="standard" checked />
+            <label for="deduction-standard">Standard deduction (auto-applied)</label>
+          </div>
+          <div>
+            <input type="radio" id="deduction-itemized" name="deductionType" value="itemized" />
+            <label for="deduction-itemized">Itemized deduction</label>
+          </div>
+          <div>
+            <label class="visually-hidden" for="itemized-amount">Itemized amount</label>
+            <input id="itemized-amount" name="itemizedAmount" type="number" inputmode="decimal" min="0" step="100" placeholder="Enter itemized deduction total" disabled />
+          </div>
+        </fieldset>
+
+        <button id="calc-btn" type="submit">Calculate</button>
+
+        <p class="note" style="opacity:.8;font-size:.95em;line-height:1.4">
+          This is a simplified federal estimate. It does not account for all credits (e.g., Child Tax Credit), AMT, NIIT, qualified dividends/capital gains rates, self-employment tax, or state/local taxes.
+        </p>
+      </form>
+
+      <article class="info" aria-live="polite" aria-atomic="true">
+        <h2>Results</h2>
+
+        <div id="results" class="results">
+          <p><strong>Status:</strong> <span id="r-status">—</span></p>
+          <p><strong>Tax year:</strong> <span id="r-year">—</span></p>
+          <p><strong>Gross income:</strong> <span id="r-income">—</span></p>
+          <p><strong>Pre-tax adjustments:</strong> <span id="r-pretax">—</span></p>
+          <p><strong>Adjusted gross income (AGI):</strong> <span id="r-agi">—</span></p>
+          <p><strong>Deduction applied:</strong> <span id="r-deduction">—</span></p>
+          <hr />
+          <p><strong>Taxable income:</strong> <span id="r-taxable">—</span></p>
+          <p><strong>Estimated federal tax:</strong> <span id="r-tax">—</span></p>
+          <p><strong>Effective tax rate:</strong> <span id="r-effective">—</span></p>
+          <p><strong>Marginal tax rate:</strong> <span id="r-marginal">—</span></p>
+        </div>
+
+        <details>
+          <summary><strong>How this is calculated</strong></summary>
+          <p>We compute AGI = gross income − pre-tax adjustments. Then we subtract either the standard deduction for your filing status or your itemized deduction amount to get taxable income. Finally, we apply the progressive marginal tax brackets for the selected tax year.</p>
+        </details>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> FAI-UP. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Mobile nav toggle (matches your site behavior)
+    document.querySelector('.nav-toggle')?.addEventListener('click', () => {
+      const nav = document.getElementById('primary-navigation');
+      const expanded = nav.classList.toggle('open');
+      document.querySelector('.nav-toggle').setAttribute('aria-expanded', expanded);
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Enable/disable itemized amount
+    const stdRadio = document.getElementById('deduction-standard');
+    const itmRadio = document.getElementById('deduction-itemized');
+    const itmInput = document.getElementById('itemized-amount');
+    function syncItemizedState() {
+      const useItemized = itmRadio.checked;
+      itmInput.disabled = !useItemized;
+      if (!useItemized) itmInput.value = '';
+    }
+    stdRadio.addEventListener('change', syncItemizedState);
+    itmRadio.addEventListener('change', syncItemizedState);
+
+    // 2024 brackets and standard deductions
+    const DATA = {
+      "2024": {
+        standardDeduction: {
+          single: 14600,
+          married_joint: 29200,
+          married_separate: 14600,
+          head_household: 21900
+        },
+        brackets: {
+          // Each array is [upperLimit, rate]; last bracket upperLimit = Infinity
+          single: [
+            [11600, 0.10],
+            [47150, 0.12],
+            [100525, 0.22],
+            [191950, 0.24],
+            [243725, 0.32],
+            [609350, 0.35],
+            [Infinity, 0.37]
+          ],
+          married_joint: [
+            [23200, 0.10],
+            [94300, 0.12],
+            [201050, 0.22],
+            [383900, 0.24],
+            [487450, 0.32],
+            [731200, 0.35],
+            [Infinity, 0.37]
+          ],
+          // For simplicity, MFS uses half of MFJ thresholds.
+          married_separate: [
+            [11600, 0.10],
+            [47150, 0.12],
+            [100525, 0.22],
+            [191950, 0.24],
+            [243725, 0.32],
+            [365600, 0.35],
+            [Infinity, 0.37]
+          ],
+          head_household: [
+            [16550, 0.10],
+            [63100, 0.12],
+            [100500, 0.22],
+            [191950, 0.24],
+            [243700, 0.32],
+            [609350, 0.35],
+            [Infinity, 0.37]
+          ]
+        }
+      }
+    };
+
+    // Helpers
+    const $ = (id) => document.getElementById(id);
+    const fmt = (n) => isFinite(n) ? n.toLocaleString(undefined, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }) : '—';
+    const fmtPct = (n) => isFinite(n) ? (n * 100).toFixed(1) + '%' : '—';
+
+    function calcTax(taxable, brackets) {
+      let remaining = Math.max(0, taxable);
+      let lower = 0;
+      let tax = 0;
+      let marginalRate = 0;
+
+      for (const [upper, rate] of brackets) {
+        const band = Math.min(remaining, upper - lower);
+        if (band > 0) {
+          tax += band * rate;
+          remaining -= band;
+          marginalRate = rate;
+        }
+        lower = upper;
+        if (remaining <= 0) break;
+      }
+      return { tax, marginalRate };
+    }
+
+    function statusLabel(key) {
+      switch (key) {
+        case 'single': return 'Single';
+        case 'married_joint': return 'Married filing jointly';
+        case 'married_separate': return 'Married filing separately';
+        case 'head_household': return 'Head of household';
+        default: return key;
+      }
+    }
+
+    function computeAndRender(e) {
+      e?.preventDefault();
+
+      const year = $('tax-year').value;
+      const status = $('filing-status').value;
+      const income = Number($('income').value || 0);
+      const pretax = Number($('pretax').value || 0);
+      const useItemized = $('deduction-itemized').checked;
+      const itemized = Number($('itemized-amount').value || 0);
+
+      const sd = DATA[year].standardDeduction[status];
+      const deductionApplied = useItemized ? itemized : sd;
+
+      const agi = Math.max(0, income - pretax);
+      const taxable = Math.max(0, agi - deductionApplied);
+
+      const { tax, marginalRate } = calcTax(taxable, DATA[year].brackets[status]);
+      const effectiveRate = income > 0 ? tax / income : 0;
+
+      // Render
+      $('r-status').textContent = statusLabel(status);
+      $('r-year').textContent = year;
+      $('r-income').textContent = fmt(income);
+      $('r-pretax').textContent = fmt(pretax);
+      $('r-agi').textContent = fmt(agi);
+      $('r-deduction').textContent = (useItemized ? 'Itemized: ' : 'Standard: ') + fmt(deductionApplied);
+      $('r-taxable').textContent = fmt(taxable);
+      $('r-tax').textContent = fmt(Math.round(tax));
+      $('r-effective').textContent = fmtPct(effectiveRate);
+      $('r-marginal').textContent = fmtPct(marginalRate);
+    }
+
+    // Live updates
+    ['tax-year','filing-status','income','pretax','deduction-standard','deduction-itemized','itemized-amount']
+      .forEach(id => $(id).addEventListener('input', computeAndRender));
+
+    $('tax-form').addEventListener('submit', computeAndRender);
+    syncItemizedState();
+    computeAndRender(); // initial
+  </script>
+
+  <style>
+    /* Light structure helpers without touching your core design system */
+    .info .input-row { display: grid; gap: 8px; margin: 10px 0; }
+    .info input[type="number"], .info select { padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0; }
+    #calc-btn { padding: 12px 16px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-weight: 700; cursor: pointer; }
+    #calc-btn:hover { background: var(--secondary); }
+    .results p { margin: 8px 0; }
+    .visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px,1px,1px,1px); white-space: nowrap; }
+  </style>
+</body>
+</html>

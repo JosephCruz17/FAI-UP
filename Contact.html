@@ -1,27 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAI-UP | Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
 
-  <!-- @NOTE linking our CSS -->
-  <link rel="stylesheet" href="contact.css" />
 
-  <!-- @NOTE linking firebase version 8 CDNs first -->
   <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
-  <!-- @NOTE initializing firebase -->
   <script defer src="init-firebase.js"></script>
-
-  <!-- @NOTE link our main.js AFTER we load initialize firebase -->
   <script defer src="script.js"></script>
-  <title>Fire Chat</title>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
   <header class="site-header">
     <nav class="nav" aria-label="Primary">
       <a class="brand" href="index.html">
@@ -33,75 +27,79 @@
         <span class="nav-toggle-bar"></span>
       </button>
       <div id="primary-navigation" class="nav-links">
-        <a href="index.html" aria-current="page">Home</a>
+        <a href="index.html">Home</a>
         <a href="Risk.html">Risk</a>
         <a href="Contact.html">Contact</a>
         <a href="FinanceforAll.html">Finance for All</a>
+        <a href="TaxC.html">Calculator</a>
+        <a href="Cashclass.html">Cash Class</a>
       </div>
     </nav>
   </header>
-  <div id="chatbox-container">
-    <h1 id="title">Fire Chat</h1>
 
-    <!-- @NOTE this is where we'll append messages -->
-    <div id="all-messages">
-      <!-- @NOTE sample message -->
-      <!-- <div class="single-message">
-                <p class="single-message-username">andymina:</p>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Doloremque laboriosam dignissimos molestias ad illum odio
-                    dolor beatae dolore! Possimus laborum culpa debitis at
-                    obcaecati sit assumenda, placeat delectus reiciendis
-                    accusamus!
-                </p>
-            </div> -->
-    </div>
+  <main id="main-content" class="content">
+    <header class="page-header">
+      <h1 id="title">Fire Chat</h1>
+      <p>Drop a message. Keep it thoughtful and on-topic.</p>
+    </header>
 
-    <div id="typing-container">
-      <form>
-        <!-- @NOTE this input has an id #username -->
-        <div class="input-container">
-          <label>Username:</label>
-          <input type="text" id="username" />
+    <section class="grid two-col">
+      <article class="info">
+        <h2>Messages</h2>
+        <div id="all-messages" role="log" aria-live="polite" aria-relevant="additions text">
+          <!-- Messages appear here -->
         </div>
+      </article>
 
-        <!-- @NOTE this input has an id #message -->
-        <div class="input-container">
-          <label>Message:</label>
-          <input type="text" id="message" />
-        </div>
+      <article class="info">
+        <h2>Compose</h2>
+        <form id="chat-form" novalidate>
+          <div class="input-container">
+            <label for="username"><strong>Username:</strong></label>
+            <input type="text" id="username" autocomplete="nickname" />
+          </div>
 
-        <!-- @NOTE this input has an id #email -->
-        <div class="input-container">
-          <label>Email:</label>
-          <input type="text" id="email" />
-        </div>
-        <!-- @NOTE this input has an id #profile -->
-        <div class="input-container">
-          <label>Profile:</label>
-          <img id="preview-image" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" />
-          <input type="text" id="profile" placeholder="Enter Image URL"
-            value="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" />
-          <script>
-            let imagePreview = document.getElementById('preview-image');
-            let imageInput = document.getElementById('profile');
+          <div class="input-container">
+            <label for="message"><strong>Message:</strong></label>
+            <input type="text" id="message" autocomplete="off" />
+          </div>
 
+          <div class="input-container">
+            <label for="email"><strong>Email:</strong></label>
+            <input type="email" id="email" autocomplete="email" />
+          </div>
 
-            imageInput.oninput = function () {
-              if (imageInput.value !== '') {
-                imagePreview.src = imageInput.value;
-              } else {
-                imagePreview.src = 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
-              }
-            };
-          </script>
-        </div>
-      </form>
+          <div class="input-container">
+            <label for="profile"><strong>Profile image URL:</strong></label>
+            <img id="preview-image" alt="Profile preview" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" />
+            <input type="url" id="profile" placeholder="Enter image URL"
+              value="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" />
+          </div>
 
-      <button id="send-btn">Send</button>
-    </div>
-  </div>
+          <button id="send-btn" type="button">Send</button>
+        </form>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> FAI-UP. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-toggle')?.addEventListener('click', () => {
+      const nav = document.getElementById('primary-navigation');
+      const expanded = nav.classList.toggle('open');
+      document.querySelector('.nav-toggle').setAttribute('aria-expanded', expanded);
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const imagePreview = document.getElementById('preview-image');
+    const imageInput = document.getElementById('profile');
+    imageInput.addEventListener('input', () => {
+      imagePreview.src = imageInput.value || 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
+    });
+  </script>
 </body>
-
 </html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>FAI-UP | Cash Class</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <header class="site-header">
+        <nav class="nav" aria-label="Primary">
+            <a class="brand" href="index.html">
+                <img src="images/FAIlogo.png" alt="FAI-UP logo" />
+            </a>
+            <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Menu">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
+            <div id="primary-navigation" class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="Risk.html">Risk</a>
+                <a href="Contact.html">Contact</a>
+                <a href="FinanceforAll.html">Finance for All</a>
+                <a href="TaxC.html">Calculator</a>
+                <a href="Cashclass.html">Cash Class</a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="content">
+        <header class="page-header">
+            <h1>Cash Class</h1>
+            <p>Learn the cash basics to grow your wealth.</p>
+        </header>
+
+        <section class="video-grid">
+  <iframe 
+    src="https://www.youtube.com/embed/ykAlUTdrK7I" 
+    title="Budgeting basics" 
+    frameborder="0" 
+    allowfullscreen></iframe>
+
+  <iframe 
+    src="https://www.youtube.com/embed/fbrLxlJ8p_k" 
+    title="Saving tips" 
+    frameborder="0" 
+    allowfullscreen></iframe>
+
+  <iframe 
+    src="https://www.youtube.com/embed/2F7-fya7bV4" 
+    title="Investing intro" 
+    frameborder="0" 
+    allowfullscreen></iframe>
+
+  <iframe 
+    src="https://www.youtube.com/embed/HEXdy3eETfQ" 
+    title="Taxes explained" 
+    frameborder="0" 
+    allowfullscreen></iframe>
+</section>
+
+<section class="kids-videos">
+  <p>It’s never too early to learn, learn now spend later.</p>
+  <iframe 
+    src="https://www.youtube.com/embed/0iRbD5rM5qc" 
+    title="Its never too early to start learning" 
+    frameborder="0" 
+    allowfullscreen></iframe>
+
+  <iframe 
+    src="https://www.youtube.com/embed/oqgtFqd8nHo" 
+    title="Kids financial video 2" 
+    frameborder="0" 
+    allowfullscreen></iframe>
+</section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="year"></span> FAI-UP. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.querySelector('.nav-toggle')?.addEventListener('click', () => {
+            const nav = document.getElementById('primary-navigation');
+            const expanded = nav.classList.toggle('open');
+            document.querySelector('.nav-toggle').setAttribute('aria-expanded', expanded);
+        });
+        document.getElementById('year').text
